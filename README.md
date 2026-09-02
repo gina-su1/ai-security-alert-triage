@@ -1,4 +1,4 @@
-# AI Security Alert Triage Assitant
+# AI Security Alert Triage Assistant
 
 A Python-based cybersecurity tool that uses AI to assist with the initial triage of security alerts.
 
