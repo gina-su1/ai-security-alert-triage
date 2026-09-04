@@ -9,8 +9,21 @@ def load_alert(file_path):
     return alert
 
 
+def assess_severity(alert):
+    """Assign a preliminary severity level based on failed login attempts."""
+
+    failed_attempts = alert["failed_attempts"]
+
+    if failed_attempts >= 15:
+        return "HIGH"
+    elif failed_attempts >= 5:
+        return "MEDIUM"
+    else:
+        return "LOW"
+
 def main():
     alert = load_alert("alerts/brute_force.json")
+    severity = assess_severity(alert)
 
     print("AI Security Alert Triage Assistant")
     print("-----------------------------------")
@@ -19,6 +32,7 @@ def main():
     print(f"Source IP: {alert['source_ip']}")
     print(f"Failed Attempts: {alert['failed_attempts']}")
     print(f"Time Window: {alert['time_window_minutes']} minutes")
+    print(f"Preliminary Severity: {severity}")
 
 
 if __name__ == "__main__":
