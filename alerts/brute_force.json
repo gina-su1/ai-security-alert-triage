@@ -1,0 +1,9 @@
+{
+    "alert_type": "Multiple Failed Logins",
+    "timestamp": "2026-09-04T08:15:42",
+    "username": "admin",
+    "source_ip": "185.42.17.91",
+    "failed_attempts": 18,
+    "time_window_minutes": 4,
+    "source": "Authentication Server"
+}
