@@ -21,9 +21,23 @@ def assess_severity(alert):
     else:
         return "LOW"
 
+def generate_reason(alert):
+    """Generate a basic explanation for the alert."""
+
+    failed_attempts = alert["failed_attempts"]
+    username = alert["username"]
+    time_window = alert["time_window_minutes"]
+
+    return (
+        f"{failed_attempts} failed login attempts were detected "
+        f"against the {username} account within a "
+        f"{time_window}-minute window."
+    )
+
 def main():
     alert = load_alert("alerts/brute_force.json")
     severity = assess_severity(alert)
+    reason = generate_reason(alert)
 
     print("AI Security Alert Triage Assistant")
     print("-----------------------------------")
@@ -33,6 +47,7 @@ def main():
     print(f"Failed Attempts: {alert['failed_attempts']}")
     print(f"Time Window: {alert['time_window_minutes']} minutes")
     print(f"Preliminary Severity: {severity}")
+    print(f"Reason: {reason}")
 
 
 if __name__ == "__main__":
