@@ -21,6 +21,7 @@ def assess_severity(alert):
     else:
         return "LOW"
 
+
 def generate_reason(alert):
     """Generate a basic explanation for the alert."""
 
@@ -34,10 +35,20 @@ def generate_reason(alert):
         f"{time_window}-minute window."
     )
 
-def main():
-    alert = load_alert("alerts/brute_force.json")
+def build_analysis(alert):
+    """Build a structured analysis result."""
+
     severity = assess_severity(alert)
     reason = generate_reason(alert)
+
+    return {
+        "alert_type": alert["alert_type"],
+        "severity": severity,
+        "reason": reason
+    }
+def main():
+    alert = load_alert("alerts/brute_force.json")
+    analysis = build_analysis(alert)
 
     print("AI Security Alert Triage Assistant")
     print("-----------------------------------")
@@ -46,8 +57,8 @@ def main():
     print(f"Source IP: {alert['source_ip']}")
     print(f"Failed Attempts: {alert['failed_attempts']}")
     print(f"Time Window: {alert['time_window_minutes']} minutes")
-    print(f"Preliminary Severity: {severity}")
-    print(f"Reason: {reason}")
+    print(f"Preliminary Severity: {analysis['severity']}")
+    print(f"Reason: {analysis['reason']}")
 
 
 if __name__ == "__main__":
